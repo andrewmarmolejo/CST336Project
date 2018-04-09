@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'functions.php';
+    include 'inc/functions.php';
     
     if(isset($_POST['removeId'])) {
         foreach($_SESSION['cart'] as $itemKey => $item) {
@@ -59,7 +59,6 @@
                 <h2>Shopping Cart</h2>
                 <!-- Cart Items -->
                 <?php
-                    
                     displayCart();
                 ?>
             </div>
