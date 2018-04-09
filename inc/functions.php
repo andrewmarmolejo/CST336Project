@@ -5,7 +5,10 @@
         global $items;
         
         if(isset($items)) {
-            
+                    
+            echo "<hr>";
+            echo "<h3>Products Found </h3>"; 
+            echo "<br />";
             echo "<table class='table' >";
             
             foreach ($items as $item) {
@@ -14,16 +17,19 @@
                 $itemPrice = $item['price'];
                 $itemImage = $item['bookImage'];
                 $itemId = $item['bookId'];
+                $itemYear = $item['publishYear'];
                 
                 echo "<tr>";
                 echo "<td><img src='$itemImage'></td>";
                 echo "<td><h4>$itemName</h4></td>";
+                echo "<td><h4>$itemYear</h4></td>";
                 echo "<td><h4>$$itemPrice</h4></td>";
                 
                 echo "<form method='post'>";
                 echo "<input type='hidden' name='itemName' value='$itemName'>";
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
                 echo "<input type='hidden' name='itemImage' value='$itemImage'>";
+                echo "<input type='hidden' name='itemYear' value='$itemYear'>";
                 echo "<input type='hidden' name='itemPrice' value='$itemPrice'>";
                 
                 if($_POST['itemId'] == $itemId) {
@@ -57,6 +63,7 @@
                 echo "<tr>";
                 echo "<td><img src='" .$item['image']. "'></td>";
                 echo "<td><h4>".$item['name']."</h4></td>";
+                echo "<td><h4>".$item['year']."</h4></td>";
                 echo "<td><h4>$".$item['price']."</h4></td>";
                 
                 echo "<form method='post'>";

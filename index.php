@@ -38,6 +38,7 @@
         $newItem['id'] = $_POST['itemId'];
         $newItem['price'] = $_POST['itemPrice'];
         $newItem['image'] = $_POST['itemImage'];
+        $newItem['year'] = $_POST['itemYear'];
         
         foreach($_SESSION['cart'] as &$item) {
             if($newItem['id'] == $item['id']) {
@@ -52,14 +53,52 @@
         }
     }
     
-    if(isset($_GET['query'])) {
+    if(isset($_GET['searchForm'])) {
         global $conn;
-        
+
         $namedParameters = array();
-        
+            
         $sql = "SELECT * FROM books WHERE 1";
-        $sql .=  " AND bookName LIKE :bookName";
-        $namedParameters[":bookName"] = "%" . $_GET['query'] . "%";
+            
+            if (!empty($_GET['bookName'])) { //checks whether user has typed something in the "Product" text box
+                 $sql .=  " AND bookName LIKE :bookName";
+                 $namedParameters[":bookName"] = "%" . $_GET['bookName'] . "%";
+            }
+            if (!empty($_GET['publisher'])) { //checks whether user has typed something in the "Product" text box
+                 $sql .=  " AND bookPublisher LIKE :bookPublisher";
+                 $namedParameters[":bookPublisher"] = "%" . $_GET['publisher'] . "%";
+            }
+            if (!empty($_GET['genres'])) { //checks whether user has typed something in the "Product" text box
+                 $sql .=  " AND genreId = :genreId";
+                 $namedParameters[":genreId"] =  $_GET['genres'];
+            } 
+             if (!empty($_GET['priceFrom'])) { //checks whether user has typed something in the "Product" text box
+                 $sql .=  " AND price >= :priceFrom";
+                 $namedParameters[":priceFrom"] =  $_GET['priceFrom'];
+             }
+             
+            if (!empty($_GET['priceTo'])) { //checks whether user has typed something in the "Product" text box
+                 $sql .=  " AND price <= :priceTo";
+                 $namedParameters[":priceTo"] =  $_GET['priceTo'];
+             }
+            
+             if (isset($_GET['orderBy'])) {
+                 
+                 if ($_GET['orderBy'] == "price") {
+                     
+                    $sql .= " ORDER BY price";
+                     
+                 } else if ($_GET['orderBy'] == "year"){
+                     
+                    $sql .= " ORDER BY publishYear";
+                    
+                 } else {   
+                     
+                    $sql .= " ORDER BY bookName";
+                 }
+             }
+        
+        
         $stmt = $conn->prepare($sql);
         $stmt->execute($namedParameters);
         $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -110,7 +149,7 @@
             <form enctype="text/plain">
                 <div class="form-group">
                     <label for="bName"><strong>Book Name</strong></label>
-                    <input type="text" class="form-control" name="query" id="bName" placeholder="Book Name">
+                    <input type="text" class="form-control" name="bookName" id="bName" placeholder="Book Name">
                 </div>
                 <div class="form-group">
                     <label for="bName"><strong>Publisher</strong></label>
@@ -148,16 +187,21 @@
                 </div>
                 <label for="bName"><strong>Order result by: </strong></label><br />
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline1" name="orderBy" class="custom-control-input">
+                    <input type="radio" id="customRadioInline1" name="orderBy"  value="price" class="custom-control-input">
                     <label class="custom-control-label" for="customRadioInline1">Price</label>
                 </div>
                 <br />
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline2" name="orderBy" class="custom-control-input">
+                    <input type="radio" id="customRadioInline2" name="orderBy" value="name"class="custom-control-input">
                     <label class="custom-control-label" for="customRadioInline2">Name</label>
                 </div>
+                <br />
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline3" name="orderBy" value="year"class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline3">Publish Year</label>
+                </div>
                 <br /><br />
-                <input type="submit" value="Submit" class="btn btn-default">
+                <input type="submit" name = "searchForm" value="Submit" class="btn btn-default">
                 <br /><br />
             </form>
             
