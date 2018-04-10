@@ -1,6 +1,52 @@
 <?php
-    session_start();
     include 'inc/functions.php';
+    include 'dbConnection.php';
+    session_start();
+    
+    $conn = getDatabaseConnection("bookstore");
+    
+    function displayInfo(){
+        global $conn;
+        
+        $bookId = $_GET['bookId'];
+
+        $sql = "SELECT * FROM `books`
+                NATURAL JOIN `authors` 
+                NATURAL JOIN `genres`
+                WHERE bookId = :bId";    
+    
+        $np = array();
+        $np[":bId"] = $bookId;
+    
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($np);
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        echo "<div id='content'>";
+        echo "<hr>";
+        echo "<h2>";
+        echo $records[0]['bookName']. "<br /><br/>";
+        echo "</h2>";
+        echo "<figure id='bookImage'>";
+        echo "<img src='" . $records[0]['bookImage'] . "' /><br/>";
+        echo "</figure>";
+        
+        echo "<aside id='bookInfo'>";
+        echo "<h3>";
+        echo "Price: " .$records[0]['price']. "<br />";
+        echo "Author: " .$records[0]['lastName']. ", " .$records[0]['firstName'];
+        echo "</h3>";
+        echo "<h4>";
+        echo "Publisher: " .$records[0]['bookPublisher']. "<br />";
+        echo "Year Published: " .$records[0]['publishYear'];
+        echo "</h4>";
+        echo "<h5>";
+        echo "Genre: " .$records[0]['genreName']. "<br />";
+        echo "Genre Description: " .$records[0]['genreDescription']. "<br />";
+        echo "</h5>";
+        echo "</aside>";
+        echo "</div>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +89,7 @@
                 <h2>Book Information</h2>
                 <!-- BOOK INFORMATION -->
                 <?php
-
+                    displayInfo();
                 ?>
             </div>
         </div>
