@@ -21,7 +21,7 @@
                 
                 echo "<tr>";
                 echo "<td><img src='$itemImage'></td>";
-                echo "<td><h4>$itemName</h4></td>";
+                echo "<td><h4><a href=\"bookInfo.php?bookId=" . $item["bookId"] ."\" target='_blank' >$itemName</a></h4></td>";
                 echo "<td><h4>$itemYear</h4></td>";
                 echo "<td><h4>$$itemPrice</h4></td>";
                 
@@ -50,7 +50,6 @@
         }
         
     }
-    
     function displayCart() {
         
         if(isset($_SESSION['cart'])) {
@@ -83,7 +82,6 @@
             echo "</table>";
         }
     }
-    
     function displayCartCount() {
         
         echo count($_SESSION['cart']);
