@@ -33,7 +33,7 @@
         
         echo "<aside id='bookInfo'>";
         echo "<h3>";
-        echo "<b>Price: </b>" .$records[0]['price']. "<br />";
+        echo "<b>Price: </b>$" .$records[0]['price']. "<br />";
         echo "<b>Author: </b>" .$records[0]['lastName']. ", " .$records[0]['firstName'];
         echo "</h3>";
         echo "<h4>";
