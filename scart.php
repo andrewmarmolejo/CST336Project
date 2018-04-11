@@ -16,7 +16,10 @@
             }
         }
     }
-
+    
+    if(isset($_POST['clearCart'])){
+if (session_status() == PHP_SESSION_ACTIVE) { session_destroy(); }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +65,7 @@
                 <?php
                     displayCart();
                     echo "<hr>"; 
+                    clearCart();
                 ?>
             </div>
         </div>

@@ -1,3 +1,5 @@
+
+
 <?php
     
     function displayResults() {
@@ -85,4 +87,11 @@
     function displayCartCount() {
         echo count($_SESSION['cart']);
     }
+    function clearCart(){
+        echo "<form method='post'>";
+        echo "<input type='hidden' name='clearCart' value='true'>";
+        echo "<td><button class='btn btn-danger'>Clear Cart</button></td>";
+        echo "</form>";
+    }
 ?>
+
