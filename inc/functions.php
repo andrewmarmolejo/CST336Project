@@ -83,7 +83,6 @@
         }
     }
     function displayCartCount() {
-        
         echo count($_SESSION['cart']);
     }
 ?>

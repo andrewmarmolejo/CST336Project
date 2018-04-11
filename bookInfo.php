@@ -33,16 +33,16 @@
         
         echo "<aside id='bookInfo'>";
         echo "<h3>";
-        echo "Price: " .$records[0]['price']. "<br />";
-        echo "Author: " .$records[0]['lastName']. ", " .$records[0]['firstName'];
+        echo "<b>Price: </b>" .$records[0]['price']. "<br />";
+        echo "<b>Author: </b>" .$records[0]['lastName']. ", " .$records[0]['firstName'];
         echo "</h3>";
         echo "<h4>";
-        echo "Publisher: " .$records[0]['bookPublisher']. "<br />";
-        echo "Year Published: " .$records[0]['publishYear'];
+        echo "<b>Publisher: </b>" .$records[0]['bookPublisher']. "<br />";
+        echo "<b>Year Published: </b>" .$records[0]['publishYear'];
         echo "</h4>";
         echo "<h5>";
-        echo "Genre: " .$records[0]['genreName']. "<br />";
-        echo "Genre Description: " .$records[0]['genreDescription']. "<br />";
+        echo "<b>Genre: </b>" .$records[0]['genreName']. "<br />";
+        echo "<b>Genre Description: </b>" .$records[0]['genreDescription']. "<br />";
         echo "</h5>";
         echo "</aside>";
         echo "</div>";

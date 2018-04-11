@@ -16,6 +16,7 @@
             }
         }
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +61,7 @@
                 <!-- Cart Items -->
                 <?php
                     displayCart();
+                    echo "<hr>"; 
                 ?>
             </div>
         </div>
